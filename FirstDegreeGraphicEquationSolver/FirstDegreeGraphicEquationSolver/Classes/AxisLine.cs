@@ -2,12 +2,12 @@
 {
     using System.Drawing;
 
-    public class Line
+    public class AxisLine
     {
         private readonly Point _point1;
         private readonly Point _point2;
 
-        public Line(Point point1, Point point2)
+        public AxisLine(Point point1, Point point2)
         {
             _point1 = point1;
             _point2 = point2;

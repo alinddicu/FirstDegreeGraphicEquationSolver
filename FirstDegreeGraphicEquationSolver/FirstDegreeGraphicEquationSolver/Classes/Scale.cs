@@ -10,17 +10,17 @@ namespace FirstDegreeGraphicEquationSolver.Classes
         private const int HalfScaleBattonetWidth = 1;
 
         private readonly Panel _drawingPanel;
-        private Origin _origin;
+        private GraphPoint _origin;
         private readonly uint _scaleSize;
 
-        public Scale(Panel drawingPanel, Origin origin, uint scaleSize)
+        public Scale(Panel drawingPanel, GraphPoint origin, uint scaleSize)
         {
             _drawingPanel = drawingPanel;
             _origin = origin;
             _scaleSize = scaleSize;
         }
 
-        public void Draw(Graphics graphics, Origin origin)
+        public void Draw(Graphics graphics, GraphPoint origin)
         {
             _origin = origin;
             Draw(graphics);

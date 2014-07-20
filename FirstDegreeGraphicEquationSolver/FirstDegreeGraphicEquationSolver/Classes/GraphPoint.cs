@@ -2,13 +2,18 @@
 {
     using System.Drawing;
 
-    public class Origin
+    public class GraphPoint
     {
         private Point _point;
 
-        public Origin(int x, int y)
+        public GraphPoint(int x, int y)
         {
             _point = new Point(x, y);
+        }
+
+        public GraphPoint(Point p)
+        {
+            _point = p;
         }
 
         public int X
@@ -21,5 +26,9 @@
             get { return _point.Y; }
         }
 
+        public Point Point
+        {
+            get { return _point; }
+        }
     }
 }

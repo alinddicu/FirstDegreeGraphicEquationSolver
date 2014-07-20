@@ -7,11 +7,11 @@ namespace FirstDegreeGraphicEquationSolver.Classes
     public class Axis
     {
         private readonly Panel _drawingPanel;
-        private Origin _origin;
-        private Line _xAxis;
-        private Line _yAxis;
+        private GraphPoint _origin;
+        private AxisLine _xAxis;
+        private AxisLine _yAxis;
 
-        public Axis(Panel drawingPanel, Origin origin)
+        public Axis(Panel drawingPanel, GraphPoint origin)
         {
             _drawingPanel = drawingPanel;
             _origin = origin;
@@ -24,7 +24,7 @@ namespace FirstDegreeGraphicEquationSolver.Classes
             DrawAxis(graphics);
         }
 
-        public void Draw(Graphics graphics, Origin origin)
+        public void Draw(Graphics graphics, GraphPoint origin)
         {
             _origin = origin;
             Draw(graphics);
@@ -32,8 +32,8 @@ namespace FirstDegreeGraphicEquationSolver.Classes
 
         private void InitAxis()
         {
-            _xAxis = new Line(new Point(0, _origin.Y), new Point(_drawingPanel.Width, _origin.Y));
-            _yAxis = new Line(new Point(_origin.X, 0), new Point(_origin.X, _drawingPanel.Height));
+            _xAxis = new AxisLine(new Point(0, _origin.Y), new Point(_drawingPanel.Width, _origin.Y));
+            _yAxis = new AxisLine(new Point(_origin.X, 0), new Point(_origin.X, _drawingPanel.Height));
         }
 
         private void DrawAxis(Graphics graphics)
