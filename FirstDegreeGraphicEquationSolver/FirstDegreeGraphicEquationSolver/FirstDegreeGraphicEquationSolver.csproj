@@ -46,6 +46,9 @@
   <ItemGroup>
     <Compile Include="Classes\Axis.cs" />
     <Compile Include="Classes\Line.cs" />
+    <Compile Include="Classes\Origin.cs" />
+    <Compile Include="Classes\RealPoint.cs" />
+    <Compile Include="Classes\Scale.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
