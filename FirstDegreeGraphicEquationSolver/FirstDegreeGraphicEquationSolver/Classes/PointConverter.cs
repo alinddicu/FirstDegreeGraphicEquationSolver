@@ -12,12 +12,17 @@
             _panelHeight = panelHeight;
         }
 
-        public Point Convert(Point point)
+        public int GetPanelWidth()
         {
-            return new Point(point.X + _panelWidth / 2, -point.Y + (_panelHeight / 2));
+            return _panelWidth;
         }
 
-        public Point Convert2(Point point)
+        public Point ConvertByAddingOrigin(Point point)
+        {
+            return new Point(point.X + _panelWidth / 2, -point.Y + _panelHeight / 2);
+        }
+
+        public Point ConvertBySubstractingOrigin(Point point)
         {
             return new Point(point.X - _panelWidth / 2, -point.Y + _panelHeight / 2);
         }

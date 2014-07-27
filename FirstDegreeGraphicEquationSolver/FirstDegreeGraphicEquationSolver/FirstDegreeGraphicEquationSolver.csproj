@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NFluent">
+      <HintPath>..\packages\NFluent.1.2.0.0\lib\net40\NFluent.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,7 +49,6 @@
   <ItemGroup>
     <Compile Include="Classes\Axis.cs" />
     <Compile Include="Classes\AxisLine.cs" />
-    <Compile Include="Classes\ConvertMatrix.cs" />
     <Compile Include="Classes\GraphPoint.cs" />
     <Compile Include="Classes\GraphLine.cs" />
     <Compile Include="Classes\RealPoint.cs" />
@@ -72,6 +74,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

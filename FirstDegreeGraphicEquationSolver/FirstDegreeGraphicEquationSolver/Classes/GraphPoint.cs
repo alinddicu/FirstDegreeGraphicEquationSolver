@@ -1,4 +1,6 @@
-﻿namespace FirstDegreeGraphicEquationSolver.Classes
+﻿using System.Globalization;
+
+namespace FirstDegreeGraphicEquationSolver.Classes
 {
     using System.Drawing;
 
@@ -29,6 +31,11 @@
         public Point Point
         {
             get { return _point; }
+        }
+
+        public override string ToString()
+        {
+            return string.Format(CultureInfo.CurrentCulture, "({0};{1})", X, Y);
         }
     }
 }

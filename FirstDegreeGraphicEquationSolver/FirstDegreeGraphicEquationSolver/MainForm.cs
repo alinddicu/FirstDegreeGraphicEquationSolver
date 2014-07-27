@@ -63,8 +63,7 @@
         {
             _axis.Draw(GenerateDrawingGraphics());
             _scale.Draw(GenerateDrawingGraphics());
-            Add2Lines();
-            DrawLines();
+            AddTestsLines();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -76,29 +75,33 @@
             GeneratePointConverter();
             _axis.Draw(GenerateDrawingGraphics(), _origin);
             _scale.Draw(GenerateDrawingGraphics(), _origin);
-            Add2Lines();
-            DrawLines();
+            AddTestsLines();
         }
 
         private void drawingPanel_MouseMove(object sender, MouseEventArgs e)
         {
             var point = _drawingPanel.PointToClient(Cursor.Position);
-            PrintMousePointerPosition(_pointConverter.Convert2(point));
+            PrintMousePointerPosition(_pointConverter.ConvertBySubstractingOrigin(point));
         }
 
         #endregion
 
-        private void Add2Lines()
+        private void AddTestsLines()
         {
-            _lines.Add(new GraphLine(new Point(-20, -20), new Point(20, 20)));
+            _lines.Clear();
+            _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 10)));
+            _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 20)));
+            _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 20)));
+            
+            DrawTestLines();
         }
 
-        private void DrawLines()
+        private void DrawTestLines()
         {
             GeneratePointConverter();
             foreach (var line in _lines)
             {
-                line.Draw(GenerateDrawingGraphics(), _pointConverter, Pens.Black);
+                line.Draw(GenerateDrawingGraphics(), Pens.Black, _pointConverter);
             }
         }
 
