@@ -74,8 +74,7 @@ namespace FirstDegreeGraphicEquationSolver
 
         private void drawingPanel_MouseMove(object sender, MouseEventArgs e)
         {
-            var point = _drawingPanel.PointToClient(Cursor.Position);
-            PrintMousePointerPosition(_pointConverter.ConvertToAbsoluteCoords(point));
+            PrintMousePointerPosition(Cursor.Position);
         }
 
         #endregion
@@ -134,7 +133,8 @@ namespace FirstDegreeGraphicEquationSolver
 
         private void PrintMousePointerPosition(Point mousePointerPosition)
         {
-            var realPoint = _scale.ApplyScale(mousePointerPosition);
+            var point = _drawingPanel.PointToClient(mousePointerPosition);
+            var realPoint = _scale.ApplyScale(_pointConverter.ConvertToAbsoluteCoords(point));
             mousePointerPositionLabel.Text = string.Format(CultureInfo.CurrentCulture, "(X;Y) = ({0};{1})", realPoint.X, realPoint.Y);
         }
     }
