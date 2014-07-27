@@ -1,11 +1,13 @@
-﻿namespace FirstDegreeGraphicEquationSolver
+﻿using System.Globalization;
+
+namespace FirstDegreeGraphicEquationSolver
 {
     using Classes;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using PointConverter = Classes.PointConverter;
+    using PanelPointConverter = Classes.PointConverter;
 
     public partial class MainForm : Form
     {
@@ -16,7 +18,7 @@
         private GraphPoint _origin;
         private Axis _axis;
         private Scale _scale;
-        private PointConverter _pointConverter;
+        private PanelPointConverter _pointConverter;
         private readonly List<GraphLine> _lines = new List<GraphLine>();
 
         public MainForm()
@@ -25,21 +27,7 @@
             InitGraph();
         }
 
-        private int PanelWidth
-        {
-            get
-            {
-                return _drawingPanel.Width;
-            }
-        }
-
-        private int PanelHeight
-        {
-            get
-            {
-                return _drawingPanel.Height;
-            }
-        }
+        #region Properties
 
         private int PanelLeftMargin
         {
@@ -56,6 +44,8 @@
                 return _drawingPanel.Height / 2;
             }
         }
+
+        #endregion
 
         #region Form events
 
@@ -81,7 +71,7 @@
         private void drawingPanel_MouseMove(object sender, MouseEventArgs e)
         {
             var point = _drawingPanel.PointToClient(Cursor.Position);
-            PrintMousePointerPosition(_pointConverter.ConvertBySubstractingOrigin(point));
+            PrintMousePointerPosition(_pointConverter.ConvertToAbsoluteCoords(point));
         }
 
         #endregion
@@ -92,6 +82,7 @@
             _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 10)));
             _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 20)));
             _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 20)));
+            _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 10)));
             
             DrawTestLines();
         }
@@ -123,7 +114,7 @@
 
         private void GeneratePointConverter()
         {
-            _pointConverter = new PointConverter(PanelWidth, PanelHeight);
+            _pointConverter = new PanelPointConverter(_origin);
         }
 
         private void GenerateOrigin()
@@ -136,15 +127,10 @@
             return _drawingPanel.CreateGraphics();
         }
 
-        private static RealPoint ApplyScale(Point p)
-        {
-            return new RealPoint((double)p.X / InitScaleSize, (double)p.Y / InitScaleSize);
-        }
-
         private void PrintMousePointerPosition(Point mousePointerPosition)
         {
-            var realPoint = ApplyScale(mousePointerPosition);
-            mousePointerPositionLabel.Text = string.Format("(X;Y) = ({0};{1})", realPoint.X, realPoint.Y);
+            var realPoint = _scale.ApplyScale(mousePointerPosition);
+            mousePointerPositionLabel.Text = string.Format(CultureInfo.CurrentCulture, "(X;Y) = ({0};{1})", realPoint.X, realPoint.Y);
         }
     }
 }

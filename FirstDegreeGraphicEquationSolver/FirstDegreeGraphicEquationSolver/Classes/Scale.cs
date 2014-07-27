@@ -42,5 +42,10 @@ namespace FirstDegreeGraphicEquationSolver.Classes
                 graphics.DrawLine(Pens.Blue, new Point(_origin.X - HalfScaleBattonetWidth, _origin.Y + scalePace), new Point(_origin.X + HalfScaleBattonetWidth, _origin.Y + scalePace));
             }
         }
+
+        public RealPoint ApplyScale(Point p)
+        {
+            return new RealPoint((double)p.X / _scaleSize, (double)p.Y / _scaleSize);
+        }
     }
 }

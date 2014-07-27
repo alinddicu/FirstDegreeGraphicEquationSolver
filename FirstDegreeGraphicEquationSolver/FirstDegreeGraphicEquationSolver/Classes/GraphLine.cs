@@ -1,4 +1,6 @@
-﻿namespace FirstDegreeGraphicEquationSolver.Classes
+﻿using System;
+
+namespace FirstDegreeGraphicEquationSolver.Classes
 {
     using System.Drawing;
 
@@ -17,8 +19,8 @@
         {
             var drawingPoint1 = new Point(pointConverter.GetPanelWidth(), GetY(pointConverter.GetPanelWidth()));
             var drawingPoint2 = new Point(-pointConverter.GetPanelWidth(), GetY(-pointConverter.GetPanelWidth()));
-            drawingPoint1 = pointConverter.ConvertByAddingOrigin(drawingPoint1);
-            drawingPoint2 = pointConverter.ConvertByAddingOrigin(drawingPoint2);
+            drawingPoint1 = pointConverter.ConvertToPanelCoords(drawingPoint1);
+            drawingPoint2 = pointConverter.ConvertToPanelCoords(drawingPoint2);
             graphics.DrawLine(pen, drawingPoint1, drawingPoint2);
         }
 
@@ -30,11 +32,19 @@
             return a * x + b;
         }
 
-        public bool HasPoint(Point checkPoint)
+        public bool HasAbsolutePoint(Point checkPoint)
         {
             // {{qx - px, qy - py}, {rx - px, ry - py}}
+
             // (qx - px) * (ry - py) - (qy - py) * (rx - px)
-            return (_graphPoint1.X - _graphPoint2.X) * (checkPoint.Y - _graphPoint2.Y) - (_graphPoint1.Y - _graphPoint2.Y) * (checkPoint.X - _graphPoint1.X) == 0;
+
+            // q = point1
+            // r = point2
+            // p = checkPoint
+            var left = (_graphPoint1.X - checkPoint.X) * (_graphPoint2.Y - checkPoint.Y);
+            var right = (_graphPoint1.Y - checkPoint.Y) * (_graphPoint2.X - checkPoint.X);
+
+            return left == right;
         }
     }
 }

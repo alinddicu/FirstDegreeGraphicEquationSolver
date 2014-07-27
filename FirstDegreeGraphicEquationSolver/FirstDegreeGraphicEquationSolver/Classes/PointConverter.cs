@@ -1,30 +1,29 @@
 ﻿namespace FirstDegreeGraphicEquationSolver.Classes
 {
     using System.Drawing;
+
     public class PointConverter
     {
-        private readonly int _panelWidth;
-        private readonly int _panelHeight;
+        private readonly GraphPoint _origin;
 
-        public PointConverter(int panelWidth, int panelHeight)
+        public PointConverter(GraphPoint origin)
         {
-            _panelWidth = panelWidth;
-            _panelHeight = panelHeight;
+            _origin = origin;
         }
 
         public int GetPanelWidth()
         {
-            return _panelWidth;
+            return _origin.X * 2;
         }
 
-        public Point ConvertByAddingOrigin(Point point)
+        public Point ConvertToPanelCoords(Point point)
         {
-            return new Point(point.X + _panelWidth / 2, -point.Y + _panelHeight / 2);
+            return new Point(point.X + _origin.X, -point.Y + _origin.Y);
         }
 
-        public Point ConvertBySubstractingOrigin(Point point)
+        public Point ConvertToAbsoluteCoords(Point point)
         {
-            return new Point(point.X - _panelWidth / 2, -point.Y + _panelHeight / 2);
+            return new Point(point.X - _origin.X, -point.Y + _origin.Y);
         }
     }
 }
