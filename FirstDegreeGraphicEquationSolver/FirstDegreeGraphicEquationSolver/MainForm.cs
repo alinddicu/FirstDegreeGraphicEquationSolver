@@ -15,6 +15,8 @@ namespace FirstDegreeGraphicEquationSolver
         private const int InitHeight = 600;
         private const int InitScaleSize = 10;
 
+        private Graphics _drawingPanelGraphics;
+
         private GraphPoint _origin;
         private Axis _axis;
         private Scale _scale;
@@ -51,8 +53,9 @@ namespace FirstDegreeGraphicEquationSolver
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            _axis.Draw(GenerateDrawingGraphics());
-            _scale.Draw(GenerateDrawingGraphics());
+            GenerateDrawingGraphics();
+            _axis.Draw(_drawingPanelGraphics);
+            _scale.Draw(_drawingPanelGraphics);
             AddTestsLines();
         }
 
@@ -63,8 +66,9 @@ namespace FirstDegreeGraphicEquationSolver
             _drawingPanel.Refresh();
             GenerateOrigin();
             GeneratePointConverter();
-            _axis.Draw(GenerateDrawingGraphics(), _origin);
-            _scale.Draw(GenerateDrawingGraphics(), _origin);
+            GenerateDrawingGraphics();
+            _axis.Draw(_drawingPanelGraphics, _origin);
+            _scale.Draw(_drawingPanelGraphics, _origin);
             AddTestsLines();
         }
 
@@ -83,16 +87,17 @@ namespace FirstDegreeGraphicEquationSolver
             _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 20)));
             _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 20)));
             _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 10)));
-            
+
             DrawTestLines();
         }
 
         private void DrawTestLines()
         {
             GeneratePointConverter();
+            GenerateDrawingGraphics();
             foreach (var line in _lines)
             {
-                line.Draw(GenerateDrawingGraphics(), Pens.Black, _pointConverter);
+                line.Draw(_drawingPanelGraphics, Pens.Black, _pointConverter);
             }
         }
 
@@ -122,9 +127,9 @@ namespace FirstDegreeGraphicEquationSolver
             _origin = new GraphPoint(PanelLeftMargin, PanelTopMargin);
         }
 
-        private Graphics GenerateDrawingGraphics()
+        private void GenerateDrawingGraphics()
         {
-            return _drawingPanel.CreateGraphics();
+            _drawingPanelGraphics = _drawingPanel.CreateGraphics();
         }
 
         private void PrintMousePointerPosition(Point mousePointerPosition)
