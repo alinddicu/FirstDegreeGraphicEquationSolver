@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq;
 
 namespace FirstDegreeGraphicEquationSolver
 {
@@ -22,6 +23,7 @@ namespace FirstDegreeGraphicEquationSolver
         private Scale _scale;
         private PanelPointConverter _pointConverter;
         private readonly List<GraphLine> _lines = new List<GraphLine>();
+        private readonly List<GraphLine> _pointedLines = new List<GraphLine>();
 
         public MainForm()
         {
@@ -75,28 +77,44 @@ namespace FirstDegreeGraphicEquationSolver
         private void drawingPanel_MouseMove(object sender, MouseEventArgs e)
         {
             PrintMousePointerPosition(Cursor.Position);
+            RedrawPointedLines(Cursor.Position);
         }
 
         #endregion
 
+        private void RedrawPointedLines(Point mousePosition)
+        {
+            GetPointedLines(mousePosition);
+            DrawLines(_lines, Pens.Black);
+            DrawLines(_pointedLines, Pens.DeepPink);
+        }
+
+        private void GetPointedLines(Point mousePointerPosition)
+        {
+            _pointedLines.Clear();
+
+            var point = _drawingPanel.PointToClient(mousePointerPosition);
+            var point2 = _pointConverter.ConvertToAbsoluteCoords(point);
+            _pointedLines.AddRange(_lines.Where(l => l.HasAbsolutePoint(point2)).ToList());
+        }
+
         private void AddTestsLines()
         {
             _lines.Clear();
-            _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 10)));
+            _lines.Add(new GraphLine(new Point(-10, 10), new Point(10, -10)));
             _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 20)));
             _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 20)));
             _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 10)));
 
-            DrawTestLines();
+            DrawLines(_lines, Pens.Black);
         }
 
-        private void DrawTestLines()
+        private void DrawLines(IEnumerable<GraphLine> lines, Pen pen)
         {
             GeneratePointConverter();
-            GenerateDrawingGraphics();
-            foreach (var line in _lines)
+            foreach (var line in lines)
             {
-                line.Draw(_drawingPanelGraphics, Pens.Black, _pointConverter);
+                line.Draw(_drawingPanelGraphics, pen, _pointConverter);
             }
         }
 
