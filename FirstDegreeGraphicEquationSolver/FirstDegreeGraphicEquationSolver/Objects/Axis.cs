@@ -1,8 +1,7 @@
-﻿using System.Windows.Forms;
-
-namespace FirstDegreeGraphicEquationSolver.Classes
+﻿namespace FirstDegreeGraphicEquationSolver.Objects
 {
     using System.Drawing;
+    using System.Windows.Forms;
 
     public class Axis
     {

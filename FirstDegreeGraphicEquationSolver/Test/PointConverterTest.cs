@@ -1,11 +1,12 @@
-﻿using NFluent;
+﻿using FirstDegreeGraphicEquationSolver.Objects;
+using FirstDegreeGraphicEquationSolver.Tools;
+using NFluent;
 
 namespace Test
 {
-    using FirstDegreeGraphicEquationSolver.Classes;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Drawing;
-    using PointConverter = FirstDegreeGraphicEquationSolver.Classes.PointConverter;
+    using PointConverter = PointConverter;
 
     [TestClass]
     public class PointConverterTest
@@ -31,7 +32,7 @@ namespace Test
             var point = new Point(1, 1);
 
             _pointConverter = new PointConverter(origin);
-            var converted = _pointConverter.ConvertToAbsoluteCoords(point);
+            var converted = _pointConverter.ConvertToScreenCoords(point);
             Check.That(converted.X).Equals(-origin.X + point.X);
             Check.That(converted.Y).Equals(origin.Y - point.Y);
         }

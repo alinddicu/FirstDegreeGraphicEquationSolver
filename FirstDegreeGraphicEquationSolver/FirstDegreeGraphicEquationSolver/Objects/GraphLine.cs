@@ -1,8 +1,7 @@
-﻿using System;
-
-namespace FirstDegreeGraphicEquationSolver.Classes
+﻿namespace FirstDegreeGraphicEquationSolver.Objects
 {
     using System.Drawing;
+    using PointConverter = Tools.PointConverter;
 
     public class GraphLine
     {
@@ -32,7 +31,7 @@ namespace FirstDegreeGraphicEquationSolver.Classes
             return a * x + b;
         }
 
-        public bool HasAbsolutePoint(Point checkPoint)
+        public bool HasScreenCoordsPoint(Point checkPoint)
         {
             // {{qx - px, qy - py}, {rx - px, ry - py}}
 

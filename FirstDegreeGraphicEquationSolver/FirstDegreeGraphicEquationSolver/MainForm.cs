@@ -1,26 +1,28 @@
-﻿using System.Globalization;
-using System.Linq;
+﻿using FirstDegreeGraphicEquationSolver.Drawers;
+using FirstDegreeGraphicEquationSolver.Objects;
+using FirstDegreeGraphicEquationSolver.Tools;
 
 namespace FirstDegreeGraphicEquationSolver
 {
-    using Classes;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
+    using System.Globalization;
+    using System.Linq;
     using System.Windows.Forms;
-    using PanelPointConverter = Classes.PointConverter;
+    using PanelPointConverter = PointConverter;
 
     public partial class MainForm : Form
     {
         private const int InitWidth = 800;
         private const int InitHeight = 600;
-        private const int InitScaleSize = 10;
 
         private Graphics _drawingPanelGraphics;
-
+        
+        private Scale _scale;
         private GraphPoint _origin;
         private Axis _axis;
-        private Scale _scale;
+        private ScaleDrawer _scaleDrawer;
         private PanelPointConverter _pointConverter;
         private readonly List<GraphLine> _lines = new List<GraphLine>();
         private readonly List<GraphLine> _pointedLines = new List<GraphLine>();
@@ -57,20 +59,20 @@ namespace FirstDegreeGraphicEquationSolver
         {
             GenerateDrawingGraphics();
             _axis.Draw(_drawingPanelGraphics);
-            _scale.Draw(_drawingPanelGraphics);
+            _scaleDrawer.Draw(_drawingPanelGraphics);
             AddTestsLines();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (_axis == null || _scale == null) return;
+            if (_axis == null || _scaleDrawer == null) return;
 
             _drawingPanel.Refresh();
             GenerateOrigin();
             GeneratePointConverter();
             GenerateDrawingGraphics();
             _axis.Draw(_drawingPanelGraphics, _origin);
-            _scale.Draw(_drawingPanelGraphics, _origin);
+            _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
             AddTestsLines();
         }
 
@@ -94,8 +96,8 @@ namespace FirstDegreeGraphicEquationSolver
             _pointedLines.Clear();
 
             var point = _drawingPanel.PointToClient(mousePointerPosition);
-            var point2 = _pointConverter.ConvertToAbsoluteCoords(point);
-            _pointedLines.AddRange(_lines.Where(l => l.HasAbsolutePoint(point2)).ToList());
+            var point2 = _pointConverter.ConvertToScreenCoords(point);
+            _pointedLines.AddRange(_lines.Where(l => l.HasScreenCoordsPoint(point2)).ToList());
         }
 
         private void AddTestsLines()
@@ -128,10 +130,16 @@ namespace FirstDegreeGraphicEquationSolver
 
         private void InitGraph()
         {
+            GenerateScale();
             GenerateOrigin();
             GeneratePointConverter();
             _axis = new Axis(_drawingPanel, _origin);
-            _scale = new Scale(_drawingPanel, _origin, InitScaleSize);
+            _scaleDrawer = new ScaleDrawer(_drawingPanel, _origin, _scale);
+        }
+
+        private void GenerateScale()
+        {
+            _scale = new Scale(10, 1);
         }
 
         private void GeneratePointConverter()
@@ -152,7 +160,7 @@ namespace FirstDegreeGraphicEquationSolver
         private void PrintMousePointerPosition(Point mousePointerPosition)
         {
             var point = _drawingPanel.PointToClient(mousePointerPosition);
-            var realPoint = _scale.ApplyScale(_pointConverter.ConvertToAbsoluteCoords(point));
+            var realPoint = _scale.Apply(_pointConverter.ConvertToScreenCoords(point));
             mousePointerPositionLabel.Text = string.Format(CultureInfo.CurrentCulture, "(X;Y) = ({0};{1})", realPoint.X, realPoint.Y);
         }
     }

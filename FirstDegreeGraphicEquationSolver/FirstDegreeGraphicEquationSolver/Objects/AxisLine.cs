@@ -1,4 +1,4 @@
-﻿namespace FirstDegreeGraphicEquationSolver.Classes
+﻿namespace FirstDegreeGraphicEquationSolver.Objects
 {
     using System.Drawing;
 

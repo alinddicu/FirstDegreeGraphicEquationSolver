@@ -1,23 +1,28 @@
 ﻿
-
-namespace FirstDegreeGraphicEquationSolver.Classes
+namespace FirstDegreeGraphicEquationSolver.Drawers
 {
     using System.Drawing;
     using System.Windows.Forms;
+    using Objects;
 
-    public class Scale
+    public class ScaleDrawer
     {
-        private const int HalfScaleBattonetWidth = 1;
-
+        private readonly int _halfScaleBattonetWidth = 1;
         private readonly Panel _drawingPanel;
         private GraphPoint _origin;
-        private readonly uint _scaleSize;
+        private readonly Scale _scale;
 
-        public Scale(Panel drawingPanel, GraphPoint origin, uint scaleSize)
+        public ScaleDrawer(Panel drawingPanel, GraphPoint origin, Scale scale)
         {
             _drawingPanel = drawingPanel;
             _origin = origin;
-            _scaleSize = scaleSize;
+            _scale = scale;
+            _halfScaleBattonetWidth = scale.HalfScaleBattonetWidth;
+        }
+
+        private int HalfScaleBattonetWidth
+        {
+            get { return _halfScaleBattonetWidth; }
         }
 
         public void Draw(Graphics graphics, GraphPoint origin)
@@ -28,24 +33,21 @@ namespace FirstDegreeGraphicEquationSolver.Classes
 
         public void Draw(Graphics graphics)
         {
-            for (int i = 1; i < _drawingPanel.Width / _scaleSize + 1; i++)
+            int pixelsScaleUnit = _scale.Pixels;
+
+            for (int i = 1; i < _drawingPanel.Width / pixelsScaleUnit + 1; i++)
             {
-                var scalePace = (int)_scaleSize * i;
+                var scalePace = pixelsScaleUnit * i;
                 graphics.DrawLine(Pens.Blue, new Point(_origin.X + scalePace, _origin.Y + HalfScaleBattonetWidth), new Point(_origin.X + scalePace, _origin.Y - HalfScaleBattonetWidth));
                 graphics.DrawLine(Pens.Blue, new Point(_origin.X - scalePace, _origin.Y + HalfScaleBattonetWidth), new Point(_origin.X - scalePace, _origin.Y - HalfScaleBattonetWidth));
             }
 
-            for (int i = 1; i < _drawingPanel.Height / _scaleSize + 1; i++)
+            for (int i = 1; i < _drawingPanel.Height / pixelsScaleUnit + 1; i++)
             {
-                var scalePace = (int)_scaleSize * i;
+                var scalePace = pixelsScaleUnit * i;
                 graphics.DrawLine(Pens.Blue, new Point(_origin.X - HalfScaleBattonetWidth, _origin.Y - scalePace), new Point(_origin.X + HalfScaleBattonetWidth, _origin.Y - scalePace));
                 graphics.DrawLine(Pens.Blue, new Point(_origin.X - HalfScaleBattonetWidth, _origin.Y + scalePace), new Point(_origin.X + HalfScaleBattonetWidth, _origin.Y + scalePace));
             }
-        }
-
-        public RealPoint ApplyScale(Point p)
-        {
-            return new RealPoint((double)p.X / _scaleSize, (double)p.Y / _scaleSize);
         }
     }
 }

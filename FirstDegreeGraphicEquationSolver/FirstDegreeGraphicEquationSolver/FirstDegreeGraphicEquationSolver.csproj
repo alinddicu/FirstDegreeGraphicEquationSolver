@@ -47,13 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Axis.cs" />
-    <Compile Include="Classes\AxisLine.cs" />
-    <Compile Include="Classes\GraphPoint.cs" />
-    <Compile Include="Classes\GraphLine.cs" />
-    <Compile Include="Classes\RealPoint.cs" />
-    <Compile Include="Classes\Scale.cs" />
-    <Compile Include="Classes\PointConverter.cs" />
+    <Compile Include="Drawers\AxisDrawer.cs" />
+    <Compile Include="Objects\Axis.cs" />
+    <Compile Include="Objects\AxisLine.cs" />
+    <Compile Include="Objects\GraphPoint.cs" />
+    <Compile Include="Objects\GraphLine.cs" />
+    <Compile Include="Objects\RealPoint.cs" />
+    <Compile Include="Objects\Scale.cs" />
+    <Compile Include="Drawers\ScaleDrawer.cs" />
+    <Compile Include="Tools\PointConverter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

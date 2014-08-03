@@ -1,8 +1,7 @@
-﻿using System.Globalization;
-
-namespace FirstDegreeGraphicEquationSolver.Classes
+﻿namespace FirstDegreeGraphicEquationSolver.Objects
 {
     using System.Drawing;
+    using System.Globalization;
 
     public class GraphPoint
     {

@@ -1,9 +1,10 @@
 ﻿
 
+using FirstDegreeGraphicEquationSolver.Objects;
+
 namespace Test
 {
     using System.Drawing;
-    using FirstDegreeGraphicEquationSolver.Classes;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using NFluent;
 
@@ -24,7 +25,7 @@ namespace Test
         {
             var line = new GraphLine(new Point(0, 0), new Point(10, 10));
 
-            Check.That(line.HasAbsolutePoint(new Point(20, 20))).Equals(true);
+            Check.That(line.HasScreenCoordsPoint(new Point(20, 20))).Equals(true);
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿namespace FirstDegreeGraphicEquationSolver.Classes
-{
-    using System.Drawing;
+﻿using System.Drawing;
+using FirstDegreeGraphicEquationSolver.Objects;
 
+namespace FirstDegreeGraphicEquationSolver.Tools
+{
     public class PointConverter
     {
         private readonly GraphPoint _origin;
@@ -21,7 +22,7 @@
             return new Point(point.X + _origin.X, -point.Y + _origin.Y);
         }
 
-        public Point ConvertToAbsoluteCoords(Point point)
+        public Point ConvertToScreenCoords(Point point)
         {
             return new Point(point.X - _origin.X, -point.Y + _origin.Y);
         }
