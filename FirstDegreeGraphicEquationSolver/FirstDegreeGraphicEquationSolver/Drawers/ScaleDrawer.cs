@@ -1,9 +1,8 @@
-﻿
-namespace FirstDegreeGraphicEquationSolver.Drawers
+﻿namespace FirstDegreeGraphicEquationSolver.Drawers
 {
+    using Objects;
     using System.Drawing;
     using System.Windows.Forms;
-    using Objects;
 
     public class ScaleDrawer
     {

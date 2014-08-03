@@ -1,8 +1,8 @@
-﻿using System.Drawing;
-using FirstDegreeGraphicEquationSolver.Objects;
-
-namespace FirstDegreeGraphicEquationSolver.Tools
+﻿namespace FirstDegreeGraphicEquationSolver.Tools
 {
+    using Objects;
+    using System.Drawing;
+
     public class PointConverter
     {
         private readonly GraphPoint _origin;

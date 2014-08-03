@@ -1,9 +1,8 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-
-namespace FirstDegreeGraphicEquationSolver.Drawers
+﻿namespace FirstDegreeGraphicEquationSolver.Drawers
 {
     using Objects;
+    using System.Drawing;
+    using System.Windows.Forms;
 
     public class AxisDrawer
     {
