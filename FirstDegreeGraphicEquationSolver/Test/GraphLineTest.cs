@@ -24,8 +24,9 @@ namespace Test
         public void GivenAbsolutePointOnThenLineWhenHasAbsolutePoinThenReturnTrue()
         {
             var line = new GraphLine(new Point(0, 0), new Point(10, 10));
+            const int scaleFactor = 1;
 
-            Check.That(line.HasScreenCoordsPoint(new Point(20, 20))).Equals(true);
+            Check.That(line.HasScreenCoordsPoint(new Point(20, 20), scaleFactor)).Equals(true);
         }
     }
 }

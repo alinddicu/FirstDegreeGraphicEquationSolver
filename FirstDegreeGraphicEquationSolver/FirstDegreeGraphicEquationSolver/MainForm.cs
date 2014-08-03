@@ -67,7 +67,7 @@
 
             var point = _drawingPanel.PointToClient(mousePointerPosition);
             var point2 = _pointConverter.ConvertToScreenCoords(point);
-            _pointedLines.AddRange(_lines.Where(l => l.HasScreenCoordsPoint(point2)).ToList());
+            _pointedLines.AddRange(_lines.Where(l => l.HasScreenCoordsPoint(point2, _scale.GetScaleFactor())).ToList());
         }
 
         private void AddTestsLines()
@@ -97,6 +97,7 @@
             Width = InitWidth;
             Height = InitHeight;
             _drawingPanel.BackColor = Color.White;
+            CenterToScreen();
         }
 
         private void InitGraph()
@@ -142,6 +143,17 @@
             mousePointerPositionLabel.Text = string.Format(CultureInfo.CurrentCulture, "(X;Y) = ({0};{1})", realPoint.X, realPoint.Y);
         }
 
+        private void RefreshLines()
+        {
+            _drawingPanel.Refresh();
+            GenerateOrigin();
+            GeneratePointConverter();
+            GenerateDrawingGraphics();
+            _axisDrawer.Draw(_drawingPanelGraphics, _origin);
+            _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
+            AddTestsLines();
+        }
+
         #region Form events
 
         private void MainForm_Shown(object sender, EventArgs e)
@@ -154,20 +166,9 @@
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
-            if (_axis == null || _scaleDrawer == null) return;
+            if (_axis == null || _scale == null) return;
 
             RefreshLines();
-        }
-
-        private void RefreshLines()
-        {
-            _drawingPanel.Refresh();
-            GenerateOrigin();
-            GeneratePointConverter();
-            GenerateDrawingGraphics();
-            _axisDrawer.Draw(_drawingPanelGraphics, _origin);
-            _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
-            AddTestsLines();
         }
 
         private void drawingPanel_MouseMove(object sender, MouseEventArgs e)

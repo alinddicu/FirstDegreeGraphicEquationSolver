@@ -21,7 +21,7 @@
             return a * x + b * scaleFactor;
         }
 
-        public bool HasScreenCoordsPoint(Point checkPoint)
+        public bool HasScreenCoordsPoint(Point checkPoint, int scaleFactor)
         {
             // {{qx - px, qy - py}, {rx - px, ry - py}}
 
@@ -30,8 +30,8 @@
             // q = point1
             // r = point2
             // p = checkPoint
-            var left = (_graphPoint1.X - checkPoint.X) * (_graphPoint2.Y - checkPoint.Y);
-            var right = (_graphPoint1.Y - checkPoint.Y) * (_graphPoint2.X - checkPoint.X);
+            var left = (_graphPoint1.X - checkPoint.X) * (GetY(_graphPoint2.X, scaleFactor) - checkPoint.Y);
+            var right = (GetY(_graphPoint1.X, scaleFactor) - checkPoint.Y) * (_graphPoint2.X - checkPoint.X);
 
             return left == right;
         }

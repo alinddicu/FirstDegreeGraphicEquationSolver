@@ -32,20 +32,35 @@
 
         public void Draw(Graphics graphics)
         {
-            int pixelsScaleUnit = _scale.Pixels;
+            DrawOnX(graphics);
+            DrawOnY(graphics);
+        }
 
-            for (int i = 1; i < _drawingPanel.Width / pixelsScaleUnit + 1; i++)
+        private void DrawOnY(Graphics graphics)
+        {
+            var pixelsScaleUnit = _scale.Pixels;
+
+            for (var i = 1; i < _drawingPanel.Height / pixelsScaleUnit + 1; i++)
             {
                 var scalePace = pixelsScaleUnit * i;
-                graphics.DrawLine(Pens.Blue, new Point(_origin.X + scalePace, _origin.Y + HalfScaleBattonetWidth), new Point(_origin.X + scalePace, _origin.Y - HalfScaleBattonetWidth));
-                graphics.DrawLine(Pens.Blue, new Point(_origin.X - scalePace, _origin.Y + HalfScaleBattonetWidth), new Point(_origin.X - scalePace, _origin.Y - HalfScaleBattonetWidth));
+                graphics.DrawLine(Pens.Blue, new Point(_origin.X - HalfScaleBattonetWidth, _origin.Y - scalePace),
+                    new Point(_origin.X + HalfScaleBattonetWidth, _origin.Y - scalePace));
+                graphics.DrawLine(Pens.Blue, new Point(_origin.X - HalfScaleBattonetWidth, _origin.Y + scalePace),
+                    new Point(_origin.X + HalfScaleBattonetWidth, _origin.Y + scalePace));
             }
+        }
 
-            for (int i = 1; i < _drawingPanel.Height / pixelsScaleUnit + 1; i++)
+        private void DrawOnX(Graphics graphics)
+        {
+            var pixelsScaleUnit = _scale.Pixels;
+
+            for (var i = 1; i < _drawingPanel.Width / pixelsScaleUnit + 1; i++)
             {
                 var scalePace = pixelsScaleUnit * i;
-                graphics.DrawLine(Pens.Blue, new Point(_origin.X - HalfScaleBattonetWidth, _origin.Y - scalePace), new Point(_origin.X + HalfScaleBattonetWidth, _origin.Y - scalePace));
-                graphics.DrawLine(Pens.Blue, new Point(_origin.X - HalfScaleBattonetWidth, _origin.Y + scalePace), new Point(_origin.X + HalfScaleBattonetWidth, _origin.Y + scalePace));
+                graphics.DrawLine(Pens.Blue, new Point(_origin.X + scalePace, _origin.Y + HalfScaleBattonetWidth),
+                    new Point(_origin.X + scalePace, _origin.Y - HalfScaleBattonetWidth));
+                graphics.DrawLine(Pens.Blue, new Point(_origin.X - scalePace, _origin.Y + HalfScaleBattonetWidth),
+                    new Point(_origin.X - scalePace, _origin.Y - HalfScaleBattonetWidth));
             }
         }
     }
