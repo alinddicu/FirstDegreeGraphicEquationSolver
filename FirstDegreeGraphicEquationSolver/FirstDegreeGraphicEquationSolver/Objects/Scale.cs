@@ -15,9 +15,10 @@
             Pixels = pixels;
         }
 
-        public double Get()
+        public int GetScaleFactor()
         {
-            return Pixels / Unit;
+            // TODO : why 10 ?
+            return Pixels / 10;
         }
 
         public RealPoint Apply(Point p)

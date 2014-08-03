@@ -1,21 +1,20 @@
-﻿using FirstDegreeGraphicEquationSolver.Drawers;
-using FirstDegreeGraphicEquationSolver.Objects;
-using FirstDegreeGraphicEquationSolver.Tools;
-
-namespace FirstDegreeGraphicEquationSolver
+﻿namespace FirstDegreeGraphicEquationSolver
 {
+    using Drawers;
+    using Objects;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Globalization;
     using System.Linq;
     using System.Windows.Forms;
-    using PanelPointConverter = PointConverter;
+    using PanelPointConverter = Tools.PointConverter;
 
     public partial class MainForm : Form
     {
         private const int InitWidth = 800;
         private const int InitHeight = 600;
+        private int _pixelsPerScaleUnit = 10;
 
         private Graphics _drawingPanelGraphics;
 
@@ -55,37 +54,6 @@ namespace FirstDegreeGraphicEquationSolver
 
         #endregion
 
-        #region Form events
-
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            GenerateDrawingGraphics();
-            _axisDrawer.Draw(_drawingPanelGraphics);
-            _scaleDrawer.Draw(_drawingPanelGraphics);
-            AddTestsLines();
-        }
-
-        private void MainForm_Resize(object sender, EventArgs e)
-        {
-            if (_axis == null || _scaleDrawer == null) return;
-
-            _drawingPanel.Refresh();
-            GenerateOrigin();
-            GeneratePointConverter();
-            GenerateDrawingGraphics();
-            _axisDrawer.Draw(_drawingPanelGraphics, _origin);
-            _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
-            AddTestsLines();
-        }
-
-        private void drawingPanel_MouseMove(object sender, MouseEventArgs e)
-        {
-            PrintMousePointerPosition(Cursor.Position);
-            RedrawPointedLines(Cursor.Position);
-        }
-
-        #endregion
-
         private void RedrawPointedLines(Point mousePosition)
         {
             GetPointedLines(mousePosition);
@@ -119,7 +87,7 @@ namespace FirstDegreeGraphicEquationSolver
             GenerateGraphLineDrawer();
             foreach (var line in lines)
             {
-                _graphLineDrawer.Draw(_drawingPanelGraphics, line, pen);
+                _graphLineDrawer.Draw(_drawingPanelGraphics, line, pen, _scale.GetScaleFactor());
             }
         }
 
@@ -149,7 +117,7 @@ namespace FirstDegreeGraphicEquationSolver
 
         private void GenerateScale()
         {
-            _scale = new Scale(10, 1);
+            _scale = new Scale(_pixelsPerScaleUnit, 1);
         }
 
         private void GeneratePointConverter()
@@ -173,5 +141,50 @@ namespace FirstDegreeGraphicEquationSolver
             var realPoint = _scale.Apply(_pointConverter.ConvertToScreenCoords(point));
             mousePointerPositionLabel.Text = string.Format(CultureInfo.CurrentCulture, "(X;Y) = ({0};{1})", realPoint.X, realPoint.Y);
         }
+
+        #region Form events
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            GenerateDrawingGraphics();
+            _axisDrawer.Draw(_drawingPanelGraphics);
+            _scaleDrawer.Draw(_drawingPanelGraphics);
+            AddTestsLines();
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (_axis == null || _scaleDrawer == null) return;
+
+            RefreshLines();
+        }
+
+        private void RefreshLines()
+        {
+            _drawingPanel.Refresh();
+            GenerateOrigin();
+            GeneratePointConverter();
+            GenerateDrawingGraphics();
+            _axisDrawer.Draw(_drawingPanelGraphics, _origin);
+            _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
+            AddTestsLines();
+        }
+
+        private void drawingPanel_MouseMove(object sender, MouseEventArgs e)
+        {
+            PrintMousePointerPosition(Cursor.Position);
+            RedrawPointedLines(Cursor.Position);
+        }
+
+        private void trackBarScale_ValueChanged(object sender, EventArgs e)
+        {
+            var trackBar = (TrackBar) sender;
+            _pixelsPerScaleUnit = trackBar.Value * 10;
+
+            GenerateScale();
+            RefreshLines();
+        }
+
+        #endregion
     }
 }

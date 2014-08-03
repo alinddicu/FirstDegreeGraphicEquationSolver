@@ -16,8 +16,8 @@ namespace Test
         {
             var line = new GraphLine(new Point(0, 0), new Point(10, 20));
 
-            Check.That(line.GetY(0)).Equals(0);
-            Check.That(line.GetY(10)).Equals(20);
+            Check.That(line.GetY(0, 10)).Equals(0);
+            Check.That(line.GetY(10, 10)).Equals(20);
         }
 
         [TestMethod]

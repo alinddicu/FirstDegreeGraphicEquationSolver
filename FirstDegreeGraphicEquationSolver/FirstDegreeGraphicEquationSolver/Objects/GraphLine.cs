@@ -13,12 +13,12 @@
             _graphPoint2 = new GraphPoint(point2);
         }
 
-        public int GetY(int x)
+        public int GetY(int x, int scaleFactor)
         {
             var a = (_graphPoint2.Y - _graphPoint1.Y) / (_graphPoint2.X - _graphPoint1.X);
             var b = _graphPoint1.Y - a * _graphPoint1.X;
 
-            return a * x + b;
+            return a * x + b * scaleFactor;
         }
 
         public bool HasScreenCoordsPoint(Point checkPoint)
