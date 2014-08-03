@@ -18,13 +18,13 @@ namespace FirstDegreeGraphicEquationSolver
         private const int InitHeight = 600;
 
         private Graphics _drawingPanelGraphics;
-        
+
         private Scale _scale;
         private GraphPoint _origin;
         private Axis _axis;
         private AxisDrawer _axisDrawer;
         private ScaleDrawer _scaleDrawer;
-        private GraphLineDrawer _graphLineDrawerDrawer;
+        private GraphLineDrawer _graphLineDrawer;
         private PanelPointConverter _pointConverter;
         private readonly List<GraphLine> _lines = new List<GraphLine>();
         private readonly List<GraphLine> _pointedLines = new List<GraphLine>();
@@ -73,7 +73,7 @@ namespace FirstDegreeGraphicEquationSolver
             GenerateOrigin();
             GeneratePointConverter();
             GenerateDrawingGraphics();
-            _axisDrawer .Draw(_drawingPanelGraphics, _origin);
+            _axisDrawer.Draw(_drawingPanelGraphics, _origin);
             _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
             AddTestsLines();
         }
@@ -116,9 +116,10 @@ namespace FirstDegreeGraphicEquationSolver
         private void DrawLines(IEnumerable<GraphLine> lines, Pen pen)
         {
             GeneratePointConverter();
+            GenerateGraphLineDrawer();
             foreach (var line in lines)
             {
-                _graphLineDrawerDrawer.Draw(_drawingPanelGraphics, line, pen);
+                _graphLineDrawer.Draw(_drawingPanelGraphics, line, pen);
             }
         }
 
@@ -138,7 +139,12 @@ namespace FirstDegreeGraphicEquationSolver
             _axis = new Axis(_drawingPanel, _origin);
             _axisDrawer = new AxisDrawer(_drawingPanel, _axis);
             _scaleDrawer = new ScaleDrawer(_drawingPanel, _origin, _scale);
-            _graphLineDrawerDrawer = new GraphLineDrawer(_pointConverter);
+            GenerateGraphLineDrawer();
+        }
+
+        private void GenerateGraphLineDrawer()
+        {
+            _graphLineDrawer = new GraphLineDrawer(_pointConverter);
         }
 
         private void GenerateScale()
