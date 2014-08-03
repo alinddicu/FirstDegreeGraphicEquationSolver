@@ -1,7 +1,6 @@
 ﻿namespace FirstDegreeGraphicEquationSolver.Objects
 {
     using System.Drawing;
-    using PointConverter = Tools.PointConverter;
 
     public class GraphLine
     {
@@ -12,15 +11,6 @@
         {
             _graphPoint1 = new GraphPoint(point1);
             _graphPoint2 = new GraphPoint(point2);
-        }
-
-        public void Draw(Graphics graphics, Pen pen, PointConverter pointConverter)
-        {
-            var drawingPoint1 = new Point(pointConverter.GetPanelWidth(), GetY(pointConverter.GetPanelWidth()));
-            var drawingPoint2 = new Point(-pointConverter.GetPanelWidth(), GetY(-pointConverter.GetPanelWidth()));
-            drawingPoint1 = pointConverter.ConvertToPanelCoords(drawingPoint1);
-            drawingPoint2 = pointConverter.ConvertToPanelCoords(drawingPoint2);
-            graphics.DrawLine(pen, drawingPoint1, drawingPoint2);
         }
 
         public int GetY(int x)

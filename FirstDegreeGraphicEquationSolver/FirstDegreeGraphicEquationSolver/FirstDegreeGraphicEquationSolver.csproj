@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawers\AxisDrawer.cs" />
+    <Compile Include="Drawers\GraphLineDrawer.cs" />
     <Compile Include="Objects\Axis.cs" />
     <Compile Include="Objects\AxisLine.cs" />
     <Compile Include="Objects\GraphPoint.cs" />

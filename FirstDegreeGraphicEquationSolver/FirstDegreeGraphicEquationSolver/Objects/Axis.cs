@@ -5,43 +5,20 @@
 
     public class Axis
     {
-        private readonly Panel _drawingPanel;
-        private GraphPoint _origin;
-        private AxisLine _xAxis;
-        private AxisLine _yAxis;
+        public GraphPoint Origin { get; set; }
+        public AxisLine X { get; private set; }
+        public AxisLine Y { get; private set; }
 
         public Axis(Panel drawingPanel, GraphPoint origin)
         {
-            _drawingPanel = drawingPanel;
-            _origin = origin;
-            InitAxis();
+            Origin = origin;
+            InitAxis(drawingPanel);
         }
 
-        public void Draw(Graphics graphics)
+        public void InitAxis(Panel drawingPanel)
         {
-            InitAxis();
-            DrawAxis(graphics);
-        }
-
-        public void Draw(Graphics graphics, GraphPoint origin)
-        {
-            _origin = origin;
-            Draw(graphics);
-        }
-
-        private void InitAxis()
-        {
-            _xAxis = new AxisLine(new Point(0, _origin.Y), new Point(_drawingPanel.Width, _origin.Y));
-            _yAxis = new AxisLine(new Point(_origin.X, 0), new Point(_origin.X, _drawingPanel.Height));
-        }
-
-        private void DrawAxis(Graphics graphics)
-        {
-            _xAxis.Draw(graphics, Pens.Red);
-            _yAxis.Draw(graphics, Pens.Red);
-
-            graphics.DrawEllipse(Pens.Blue, _origin.X-3, _origin.Y-3, 6, 6);
-            graphics.FillPie(new SolidBrush(Color.Blue), _origin.X - 3, _origin.Y - 3, 6, 6, 2, 2);
+            X = new AxisLine(new Point(0, Origin.Y), new Point(drawingPanel.Width, Origin.Y));
+            Y = new AxisLine(new Point(Origin.X, 0), new Point(Origin.X, drawingPanel.Height));
         }
     }
 }

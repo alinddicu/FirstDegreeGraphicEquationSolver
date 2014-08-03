@@ -22,7 +22,9 @@ namespace FirstDegreeGraphicEquationSolver
         private Scale _scale;
         private GraphPoint _origin;
         private Axis _axis;
+        private AxisDrawer _axisDrawer;
         private ScaleDrawer _scaleDrawer;
+        private GraphLineDrawer _graphLineDrawerDrawer;
         private PanelPointConverter _pointConverter;
         private readonly List<GraphLine> _lines = new List<GraphLine>();
         private readonly List<GraphLine> _pointedLines = new List<GraphLine>();
@@ -58,7 +60,7 @@ namespace FirstDegreeGraphicEquationSolver
         private void MainForm_Shown(object sender, EventArgs e)
         {
             GenerateDrawingGraphics();
-            _axis.Draw(_drawingPanelGraphics);
+            _axisDrawer.Draw(_drawingPanelGraphics);
             _scaleDrawer.Draw(_drawingPanelGraphics);
             AddTestsLines();
         }
@@ -71,7 +73,7 @@ namespace FirstDegreeGraphicEquationSolver
             GenerateOrigin();
             GeneratePointConverter();
             GenerateDrawingGraphics();
-            _axis.Draw(_drawingPanelGraphics, _origin);
+            _axisDrawer .Draw(_drawingPanelGraphics, _origin);
             _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
             AddTestsLines();
         }
@@ -116,7 +118,7 @@ namespace FirstDegreeGraphicEquationSolver
             GeneratePointConverter();
             foreach (var line in lines)
             {
-                line.Draw(_drawingPanelGraphics, pen, _pointConverter);
+                _graphLineDrawerDrawer.Draw(_drawingPanelGraphics, line, pen);
             }
         }
 
@@ -134,7 +136,9 @@ namespace FirstDegreeGraphicEquationSolver
             GenerateOrigin();
             GeneratePointConverter();
             _axis = new Axis(_drawingPanel, _origin);
+            _axisDrawer = new AxisDrawer(_drawingPanel, _axis);
             _scaleDrawer = new ScaleDrawer(_drawingPanel, _origin, _scale);
+            _graphLineDrawerDrawer = new GraphLineDrawer(_pointConverter);
         }
 
         private void GenerateScale()

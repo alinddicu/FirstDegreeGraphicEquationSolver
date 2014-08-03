@@ -4,18 +4,13 @@
 
     public class AxisLine
     {
-        private readonly Point _point1;
-        private readonly Point _point2;
+        public Point Point1 { get; private set; }
+        public Point Point2 { get; private set; }
 
         public AxisLine(Point point1, Point point2)
         {
-            _point1 = point1;
-            _point2 = point2;
-        }
-
-        public void Draw(Graphics graphics, Pen pen)
-        {
-            graphics.DrawLine(pen, _point1, _point2);
+            Point1 = point1;
+            Point2 = point2;
         }
     }
 }
