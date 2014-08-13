@@ -56,6 +56,7 @@
     <Compile Include="Objects\RealPoint.cs" />
     <Compile Include="Objects\Scale.cs" />
     <Compile Include="Drawers\ScaleDrawer.cs" />
+    <Compile Include="Tools\FirstDegreeEquationPhraseParser.cs" />
     <Compile Include="Tools\PointConverter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
