@@ -8,7 +8,7 @@
     public class FirstDegreeEquationExpressionParser
     {
         // (+/-)ax(+/-)b
-        private static readonly Regex VerifyExpressionRegex = new Regex(@"^(\+?|\-?)(\d*)(\.?)(\d*)(x)(\+?|\-?)(\d*)(\.?)(\d*)$");
+        private static readonly Regex VerifyExpressionRegex = new Regex(@"^(\+?|\-?)(\d*)(\.?)(\d*)(x|X)(\+?|\-?)(\d*)(\.?)(\d*)$");
         private static readonly CultureInfo FormatProvider = new CultureInfo("en-US");
 
         private bool CanParse(string expression)
@@ -16,14 +16,16 @@
             return VerifyExpressionRegex.IsMatch(expression);
         }
 
-        public FirstDegreeEquation Extract(string expression)
+        public FirstDegreeEquation Parse(string expression)
         {
+            expression = Regex.Replace(expression, @"\s+", string.Empty);
             if (!CanParse(expression))
             {
                 throw new InvalidDataException(string.Format("First degree equation expression invalid '{0}'", expression));
             }
 
-            var splits = expression.Split('x');
+            var splitChar = expression.IndexOf('x') > -1 ? 'x' : 'X';
+            var splits = expression.Split(splitChar);
             var a = double.Parse(PreConvertA(splits[0]), FormatProvider);
             var b = double.Parse(PreConvertB(splits[1]), FormatProvider);
 

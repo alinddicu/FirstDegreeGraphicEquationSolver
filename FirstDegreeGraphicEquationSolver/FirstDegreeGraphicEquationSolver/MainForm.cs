@@ -8,6 +8,7 @@
     using System.Globalization;
     using System.Linq;
     using System.Windows.Forms;
+    using Tools;
     using PanelPointConverter = Tools.PointConverter;
 
     public partial class MainForm : Form
@@ -25,8 +26,13 @@
         private ScaleDrawer _scaleDrawer;
         private GraphLineDrawer _graphLineDrawer;
         private PanelPointConverter _pointConverter;
+
+        private readonly FirstDegreeEquationExpressionParser _equationParser = new FirstDegreeEquationExpressionParser();
         private readonly List<GraphLine> _lines = new List<GraphLine>();
         private readonly List<GraphLine> _pointedLines = new List<GraphLine>();
+
+        private ListBox _equationListBox;
+        private TextBox _equationTextBox;
 
         public MainForm()
         {
@@ -70,15 +76,17 @@
             _pointedLines.AddRange(_lines.Where(l => l.HasScreenCoordsPoint(point2, _scale.GetScaleFactor())).ToList());
         }
 
-        private void AddTestsLines()
+        private void AddInitEquation()
         {
-            _lines.Clear();
-            _lines.Add(new GraphLine(new Point(-10, 10), new Point(10, -10)));
-            _lines.Add(new GraphLine(new Point(0, 0), new Point(10, 20)));
-            _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 20)));
-            _lines.Add(new GraphLine(new Point(0, 10), new Point(10, 10)));
+            AddEquation("x+1");
+        }
 
-            DrawLines(_lines, Pens.Black);
+        private void AddEquation(string expression) 
+        {
+            var equation = _equationParser.Parse(expression);
+            _lines.Add(new GraphLine(equation));
+            _equationListBox.Items.Add(equation);
+            RefreshLines();
         }
 
         private void DrawLines(IEnumerable<GraphLine> lines, Pen pen)
@@ -98,6 +106,7 @@
             Height = InitHeight;
             _drawingPanel.BackColor = Color.White;
             CenterToScreen();
+            _equationTextBox.Focus();
         }
 
         private void InitGraph()
@@ -151,7 +160,7 @@
             GenerateDrawingGraphics();
             _axisDrawer.Draw(_drawingPanelGraphics, _origin);
             _scaleDrawer.Draw(_drawingPanelGraphics, _origin);
-            AddTestsLines();
+            DrawLines(_lines, Pens.Black); ;
         }
 
         #region Form events
@@ -161,7 +170,7 @@
             GenerateDrawingGraphics();
             _axisDrawer.Draw(_drawingPanelGraphics);
             _scaleDrawer.Draw(_drawingPanelGraphics);
-            AddTestsLines();
+            AddInitEquation();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -184,6 +193,15 @@
 
             GenerateScale();
             RefreshLines();
+        }
+
+        private void equationTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                AddEquation((sender as TextBox).Text);
+                _equationTextBox.Text = string.Empty;
+            }
         }
 
         #endregion

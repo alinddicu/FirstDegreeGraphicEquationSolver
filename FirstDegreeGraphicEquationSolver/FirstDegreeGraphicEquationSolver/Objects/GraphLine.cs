@@ -6,6 +6,7 @@
     {
         private readonly GraphPoint _graphPoint1;
         private readonly GraphPoint _graphPoint2;
+        private readonly FirstDegreeEquation _equation;
 
         public GraphLine(Point point1, Point point2)
         {
@@ -15,8 +16,9 @@
 
         public GraphLine(FirstDegreeEquation equation)
         {
-            _graphPoint1 = new GraphPoint(0, (int)equation.GetY(0));
-            _graphPoint2 = new GraphPoint(0, (int)equation.GetY(1));
+            _equation = equation;
+            _graphPoint1 = new GraphPoint(0, (int)_equation.GetY(0));
+            _graphPoint2 = new GraphPoint(1, (int)_equation.GetY(1));
         }
 
         public int GetY(int x, int scaleFactor)

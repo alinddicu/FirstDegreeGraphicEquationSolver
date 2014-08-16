@@ -55,7 +55,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="FirstDegreeEquationPhraseParserTest.cs" />
+    <Compile Include="FirstDegreeEquationExpressionTest.cs" />
     <Compile Include="GraphLineTest.cs" />
     <Compile Include="PointConverterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
