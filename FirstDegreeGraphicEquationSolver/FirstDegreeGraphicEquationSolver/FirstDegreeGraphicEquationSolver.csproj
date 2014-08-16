@@ -51,12 +51,13 @@
     <Compile Include="Drawers\GraphLineDrawer.cs" />
     <Compile Include="Objects\Axis.cs" />
     <Compile Include="Objects\AxisLine.cs" />
+    <Compile Include="Objects\FirstDegreeEquation.cs" />
     <Compile Include="Objects\GraphPoint.cs" />
     <Compile Include="Objects\GraphLine.cs" />
     <Compile Include="Objects\RealPoint.cs" />
     <Compile Include="Objects\Scale.cs" />
     <Compile Include="Drawers\ScaleDrawer.cs" />
-    <Compile Include="Tools\FirstDegreeEquationPhraseParser.cs" />
+    <Compile Include="Tools\FirstDegreeEquationExpressionParser.cs" />
     <Compile Include="Tools\PointConverter.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>

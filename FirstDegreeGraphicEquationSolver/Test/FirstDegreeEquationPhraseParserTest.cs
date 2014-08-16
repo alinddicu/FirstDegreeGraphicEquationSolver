@@ -7,90 +7,105 @@
     [TestClass]
     public class FirstDegreeEquationPhraseParserTest
     {
-        private FirstDegreeEquationPhraseParser _parser = new FirstDegreeEquationPhraseParser();
+        private FirstDegreeEquationExpressionParser _parser = new FirstDegreeEquationExpressionParser();
 
         [TestMethod]
         public void TestX()
         {
-            Check.That(_parser.CanParse("x")).Equals(true);
-            Check.That(_parser.Extract("x")).ContainsExactly(new[] { 1.0, 0.0 });
+            var equation = _parser.Extract("x");
+            Check.That(equation.GetY(0)).Equals(0.0);
+            Check.That(equation.GetY(1)).Equals(1.0);
         }
 
         [TestMethod]
         public void Test2X()
         {
-            Check.That(_parser.CanParse("2x")).Equals(true);
-            Check.That(_parser.Extract("2x")).ContainsExactly(new[] { 2.0, 0.0 });
+            var equation = _parser.Extract("2x");
+            Check.That(equation.GetY(0)).Equals(0.0);
+            Check.That(equation.GetY(1)).Equals(2.0);
         }
 
         [TestMethod]
         public void Test2Point1X()
         {
-            Check.That(_parser.CanParse("2.1x")).Equals(true);
-            Check.That(_parser.Extract("2.1x")).ContainsExactly(new[] { 2.1, 0.0 });
+            var equation = _parser.Extract("2.1x");
+            Check.That(equation.GetY(0)).Equals(0.0);
+            Check.That(equation.GetY(1)).Equals(2.1);
         }
 
         [TestMethod]
         public void Test2Point1XPlus2Point1()
         {
-            Check.That(_parser.CanParse("2.1x+2.1")).Equals(true);
-            Check.That(_parser.Extract("2.1x+2.1")).ContainsExactly(new[] { 2.1, 2.1 });
+            var equation = _parser.Extract("2.1x+2.1");
+            Check.That(equation.GetY(0)).Equals(2.1);
+            Check.That(equation.GetY(1)).Equals(4.2);
         }
 
         [TestMethod]
         public void TestMinus2Point1XMinus2Point1()
         {
-            Check.That(_parser.CanParse("-2.1x-2.1")).Equals(true);
-            Check.That(_parser.Extract("-2.1x-2.1")).ContainsExactly(new[] { -2.1, -2.1 });
+            var equation = _parser.Extract("-2.1x-2.1");
+            Check.That(equation.GetY(0)).Equals(-2.1);
+            Check.That(equation.GetY(1)).Equals(-4.2);
         }
 
         [TestMethod]
         public void TestPlusX()
         {
-            Check.That(_parser.CanParse("+x")).Equals(true);
+            var equation = _parser.Extract("+x");
+            Check.That(equation.GetY(0)).Equals(0.0);
+            Check.That(equation.GetY(1)).Equals(1.0);
         }
 
         [TestMethod]
         public void TestMinusX()
         {
-            Check.That(_parser.CanParse("-x")).Equals(true);
-            Check.That(_parser.Extract("-x")).ContainsExactly(new[] { -1.0, 0.0 });
+            var equation = _parser.Extract("-x");
+            Check.That(equation.GetY(0)).Equals(0.0);
+            Check.That(equation.GetY(1)).Equals(-1.0);
         }
 
         [TestMethod]
         public void TestXPlus1()
         {
-            Check.That(_parser.CanParse("x+1")).Equals(true);
+            var equation = _parser.Extract("x+1");
+            Check.That(equation.GetY(0)).Equals(1.0);
+            Check.That(equation.GetY(1)).Equals(2.0);
         }
 
         [TestMethod]
         public void TestXMinus1()
         {
-            Check.That(_parser.CanParse("x-1")).Equals(true);
+            var equation = _parser.Extract("x-1");
+            Check.That(equation.GetY(0)).Equals(-1.0);
+            Check.That(equation.GetY(1)).Equals(0.0);
         }
 
         [TestMethod]
         public void Test2XPlus1()
         {
-            Check.That(_parser.CanParse("2x+1")).Equals(true);
+            var equation = _parser.Extract("2.1x+1");
+            Check.That(equation.GetY(0)).Equals(1.0);
+            Check.That(equation.GetY(1)).Equals(3.1);
         }
 
         [TestMethod]
         public void TestXaab()
         {
-            Check.That(_parser.CanParse("xaab")).Equals(false);
+            //var equation = _parser.Extract("xaab");
+            //Check.ThatCode(() => equation.GetY(0)).;
         }
 
-        [TestMethod]
-        public void TestPlusMinusX()
-        {
-            Check.That(_parser.CanParse("+-x")).Equals(false);
-        }
+        //[TestMethod]
+        //public void TestPlusMinusX()
+        //{
+        //    // Check.That(_parser.CanParse("+-x")).Equals(false);
+        //}
 
-        [TestMethod]
-        public void Test2Point1XPlus2PointPlus()
-        {
-            Check.That(_parser.CanParse("2.1x+2.1+")).Equals(false);
-        }
+        //[TestMethod]
+        //public void Test2Point1XPlus2PointPlus()
+        //{
+        //    // Check.That(_parser.CanParse("2.1x+2.1+")).Equals(false);
+        //}
     }
 }
