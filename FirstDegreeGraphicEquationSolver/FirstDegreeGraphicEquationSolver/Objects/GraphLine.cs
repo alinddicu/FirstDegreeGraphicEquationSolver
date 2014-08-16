@@ -13,6 +13,12 @@
             _graphPoint2 = new GraphPoint(point2);
         }
 
+        public GraphLine(FirstDegreeEquation equation)
+        {
+            _graphPoint1 = new GraphPoint(0, (int)equation.GetY(0));
+            _graphPoint2 = new GraphPoint(0, (int)equation.GetY(1));
+        }
+
         public int GetY(int x, int scaleFactor)
         {
             var a = (_graphPoint2.Y - _graphPoint1.Y) / (_graphPoint2.X - _graphPoint1.X);
