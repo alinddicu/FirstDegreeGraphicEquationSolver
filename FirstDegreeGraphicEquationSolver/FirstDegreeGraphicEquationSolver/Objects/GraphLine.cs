@@ -8,12 +8,6 @@
         private readonly GraphPoint _graphPoint2;
         private readonly FirstDegreeEquation _equation;
 
-        public GraphLine(Point point1, Point point2)
-        {
-            _graphPoint1 = new GraphPoint(point1);
-            _graphPoint2 = new GraphPoint(point2);
-        }
-
         public GraphLine(FirstDegreeEquation equation)
         {
             _equation = equation;

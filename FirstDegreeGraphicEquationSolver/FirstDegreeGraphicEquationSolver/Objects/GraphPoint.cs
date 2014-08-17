@@ -12,11 +12,6 @@
             _point = new Point(x, y);
         }
 
-        public GraphPoint(Point p)
-        {
-            _point = p;
-        }
-
         public int X
         {
             get { return _point.X; }
@@ -30,11 +25,6 @@
         public Point Point
         {
             get { return _point; }
-        }
-
-        public override string ToString()
-        {
-            return string.Format(CultureInfo.CurrentCulture, "({0};{1})", X, Y);
         }
     }
 }
