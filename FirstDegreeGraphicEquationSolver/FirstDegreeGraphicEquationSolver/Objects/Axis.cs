@@ -5,11 +5,11 @@
 
     public class Axis
     {
-        public GraphPoint Origin { get; set; }
+        public Point Origin { get; set; }
         public AxisLine X { get; private set; }
         public AxisLine Y { get; private set; }
 
-        public Axis(Panel drawingPanel, GraphPoint origin)
+        public Axis(Panel drawingPanel, Point origin)
         {
             Origin = origin;
             InitAxis(drawingPanel);

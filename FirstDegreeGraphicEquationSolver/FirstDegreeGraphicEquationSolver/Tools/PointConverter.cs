@@ -5,9 +5,9 @@
 
     public class PointConverter
     {
-        private readonly GraphPoint _origin;
+        private readonly Point _origin;
 
-        public PointConverter(GraphPoint origin)
+        public PointConverter(Point origin)
         {
             _origin = origin;
         }

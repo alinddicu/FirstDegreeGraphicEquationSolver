@@ -52,7 +52,6 @@
     <Compile Include="Objects\Axis.cs" />
     <Compile Include="Objects\AxisLine.cs" />
     <Compile Include="Objects\FirstDegreeEquation.cs" />
-    <Compile Include="Objects\GraphPoint.cs" />
     <Compile Include="Objects\GraphLine.cs" />
     <Compile Include="Objects\RealPoint.cs" />
     <Compile Include="Objects\Scale.cs" />

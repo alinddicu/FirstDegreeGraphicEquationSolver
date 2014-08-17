@@ -60,6 +60,7 @@
     <Compile Include="GraphLineTest.cs" />
     <Compile Include="PointConverterTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScaleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FirstDegreeGraphicEquationSolver\FirstDegreeGraphicEquationSolver.csproj">

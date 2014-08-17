@@ -6,7 +6,6 @@
 
     public class AxisDrawer
     {
-        private const int EllipsisHeight = 6;
         private readonly Panel _drawingPanel;
         private readonly Axis _axis;
 
@@ -22,7 +21,7 @@
             DrawAxis(graphics);
         }
 
-        public void Draw(Graphics graphics, GraphPoint origin)
+        public void Draw(Graphics graphics, Point origin)
         {
             _axis.Origin = origin;
             Draw(graphics);
@@ -32,9 +31,6 @@
         {
             graphics.DrawLine(Pens.Red, _axis.X.Point1, _axis.X.Point2);
             graphics.DrawLine(Pens.Red, _axis.Y.Point1, _axis.Y.Point2);
-
-            graphics.DrawEllipse(Pens.Blue, _axis.Origin.X - 3, _axis.Origin.Y - 3, EllipsisHeight, EllipsisHeight);
-            graphics.FillPie(new SolidBrush(Color.Blue), _axis.Origin.X - 3, _axis.Origin.Y - 3, EllipsisHeight, EllipsisHeight, 2, 2);
         }
     }
 }

@@ -13,14 +13,18 @@
 
     public partial class MainForm : Form
     {
+        private const int PixelsPerScaleBaseValue = 10;
+        private const int HalfScaleBattonetWidth = 1;
+
         private const int InitWidth = 800;
         private const int InitHeight = 600;
-        private int _pixelsPerScaleUnit = 10;
+
+        private int _pixelsPerScaleUnit = PixelsPerScaleBaseValue;
 
         private Graphics _drawingPanelGraphics;
 
         private Scale _scale;
-        private GraphPoint _origin;
+        private Point _origin;
         private Axis _axis;
         private AxisDrawer _axisDrawer;
         private ScaleDrawer _scaleDrawer;
@@ -127,7 +131,7 @@
 
         private void GenerateScale()
         {
-            _scale = new Scale(_pixelsPerScaleUnit, 1);
+            _scale = new Scale(_pixelsPerScaleUnit, HalfScaleBattonetWidth, PixelsPerScaleBaseValue);
         }
 
         private void GeneratePointConverter()
@@ -137,7 +141,7 @@
 
         private void GenerateOrigin()
         {
-            _origin = new GraphPoint(PanelLeftMargin, PanelTopMargin);
+            _origin = new Point(PanelLeftMargin, PanelTopMargin);
         }
 
         private void GenerateDrawingGraphics()

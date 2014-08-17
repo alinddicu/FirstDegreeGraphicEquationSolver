@@ -8,7 +8,7 @@
         public int Pixels { get; private set; }
         private int Unit { get; set; }
 
-        public Scale(int pixels, int halfScaleBattonetWidth, int unit = 1)
+        public Scale(int pixels, int halfScaleBattonetWidth, int unit)
         {
             HalfScaleBattonetWidth = halfScaleBattonetWidth;
             Unit = unit;
@@ -17,13 +17,12 @@
 
         public int GetScaleFactor()
         {
-            // TODO : why 10 ?
-            return Pixels / 10;
+            return Pixels / Unit;
         }
 
         public RealPoint Apply(Point p)
         {
-            return new RealPoint((double)p.X / Pixels, (double)p.Y / Pixels);
+            return new RealPoint((double)p.X / GetScaleFactor(), (double)p.Y / GetScaleFactor());
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Test
         [TestMethod]
         public void WhenConvertToPanelCoordsThenNewCoordsAreOk()
         {
-            var origin = new GraphPoint(1, 2);
+            var origin = new Point(1, 2);
             var point = new Point(1, 1);
 
             _pointConverter = new PointConverter(origin);
@@ -28,7 +28,7 @@ namespace Test
         [TestMethod]
         public void WhenConvertToAbsoluteCoordsThenNewCoordsAreOk()
         {
-            var origin = new GraphPoint(1, 1);
+            var origin = new Point(1, 1);
             var point = new Point(1, 1);
 
             _pointConverter = new PointConverter(origin);
