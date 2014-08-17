@@ -23,9 +23,10 @@
 
         private Graphics _drawingPanelGraphics;
 
-        private Scale _scale;
         private Point _origin;
+        private Scale _scale;
         private Axis _axis;
+
         private AxisDrawer _axisDrawer;
         private ScaleDrawer _scaleDrawer;
         private GraphLineDrawer _graphLineDrawer;
@@ -151,9 +152,7 @@
 
         private void PrintMousePointerPosition(Point mousePointerPosition)
         {
-            var point = _drawingPanel.PointToClient(mousePointerPosition);
-            var realPoint = _scale.Apply(_pointConverter.ConvertToScreenCoords(point));
-            mousePointerPositionLabel.Text = string.Format(CultureInfo.CurrentCulture, "(X;Y) = ({0};{1})", realPoint.X, realPoint.Y);
+            mousePointerPositionLabel.Text = new MousePositionPrinter(_drawingPanel, _scale, _pointConverter).Print(mousePointerPosition);
         }
 
         private void RefreshLines()
