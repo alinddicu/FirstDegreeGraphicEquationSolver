@@ -1,12 +1,14 @@
 ﻿namespace FirstDegreeGraphicEquationSolver
 {
     using Drawers;
+    using FirstDegreeGraphicEquationSolver.DataAccess;
     using Objects;
     using System;
+    using System.Linq;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Drawing;
     using System.Globalization;
-    using System.Linq;
     using System.Windows.Forms;
     using Tools;
     using PanelPointConverter = Tools.PointConverter;
@@ -33,11 +35,24 @@
         private PanelPointConverter _pointConverter;
 
         private readonly FirstDegreeEquationExpressionParser _equationParser = new FirstDegreeEquationExpressionParser();
+        private readonly List<FirstDegreeEquation> _equations = new List<FirstDegreeEquation>();
         private readonly List<GraphLine> _lines = new List<GraphLine>();
         private readonly List<GraphLine> _pointedLines = new List<GraphLine>();
 
         private ListBox _equationListBox;
         private TextBox _equationTextBox;
+        private DataGridView _equationsDataGridView;
+
+        private void BindEquationGridView()
+        {
+            _equationsDataGridView.Columns["Selected"].DataPropertyName = "Selected";
+            _equationsDataGridView.Columns["Equation"].DataPropertyName = "Equation";
+            _equationsDataGridView.Columns["Highlighted"].DataPropertyName = "Highlighted";
+
+            var list = new List<EquationListItem>();
+            _equations.ForEach(e => list.Add(new EquationListItem { Selected = true, Equation = e, Highlighted = false }));
+            _equationsDataGridView.DataSource = new BindingList<EquationListItem>(list);
+        }
 
         public MainForm()
         {
@@ -89,8 +104,10 @@
         private void AddEquation(string expression) 
         {
             var equation = _equationParser.Parse(expression);
+            _equations.Add(equation);
             _lines.Add(new GraphLine(equation));
             _equationListBox.Items.Add(equation);
+            //BindEquationGridView();
             RefreshLines();
         }
 

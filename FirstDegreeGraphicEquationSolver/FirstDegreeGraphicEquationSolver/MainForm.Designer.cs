@@ -29,17 +29,22 @@
         private void InitializeComponent()
         {
             this._drawingPanel = new System.Windows.Forms.Panel();
+            this._controlPanel = new System.Windows.Forms.Panel();
+            this._equationsDataGridView = new System.Windows.Forms.DataGridView();
+            this._equationListBox = new System.Windows.Forms.ListBox();
+            this._equationTextBox = new System.Windows.Forms.TextBox();
             this._scaleTrackBar = new System.Windows.Forms.TrackBar();
             this.statusStripBottom1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelPointerCoords = new System.Windows.Forms.ToolStripStatusLabel();
             this.mousePointerPositionLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this._controlPanel = new System.Windows.Forms.Panel();
-            this._equationTextBox = new System.Windows.Forms.TextBox();
-            this._equationListBox = new System.Windows.Forms.ListBox();
+            this.Selected = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Equation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Highlighted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this._drawingPanel.SuspendLayout();
+            this._controlPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._equationsDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._scaleTrackBar)).BeginInit();
             this.statusStripBottom1.SuspendLayout();
-            this._controlPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // _drawingPanel
@@ -53,12 +58,59 @@
             this._drawingPanel.TabIndex = 0;
             this._drawingPanel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.drawingPanel_MouseMove);
             // 
-            // trackBarScale
+            // _controlPanel
+            // 
+            this._controlPanel.Controls.Add(this._equationsDataGridView);
+            this._controlPanel.Controls.Add(this._equationListBox);
+            this._controlPanel.Controls.Add(this._equationTextBox);
+            this._controlPanel.Controls.Add(this._scaleTrackBar);
+            this._controlPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this._controlPanel.Location = new System.Drawing.Point(0, 0);
+            this._controlPanel.Name = "_controlPanel";
+            this._controlPanel.Size = new System.Drawing.Size(132, 407);
+            this._controlPanel.TabIndex = 3;
+            // 
+            // _equationsDataGridView
+            // 
+            this._equationsDataGridView.AllowUserToAddRows = false;
+            this._equationsDataGridView.AllowUserToDeleteRows = false;
+            this._equationsDataGridView.AllowUserToResizeColumns = false;
+            this._equationsDataGridView.AllowUserToResizeRows = false;
+            this._equationsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this._equationsDataGridView.ColumnHeadersVisible = false;
+            this._equationsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Selected,
+            this.Equation,
+            this.Highlighted});
+            this._equationsDataGridView.Location = new System.Drawing.Point(3, 266);
+            this._equationsDataGridView.Name = "_equationsDataGridView";
+            this._equationsDataGridView.ReadOnly = true;
+            this._equationsDataGridView.RowHeadersVisible = false;
+            this._equationsDataGridView.Size = new System.Drawing.Size(126, 150);
+            this._equationsDataGridView.TabIndex = 5;
+            // 
+            // _equationListBox
+            // 
+            this._equationListBox.FormattingEnabled = true;
+            this._equationListBox.Location = new System.Drawing.Point(3, 73);
+            this._equationListBox.Name = "_equationListBox";
+            this._equationListBox.Size = new System.Drawing.Size(126, 186);
+            this._equationListBox.TabIndex = 4;
+            // 
+            // _equationTextBox
+            // 
+            this._equationTextBox.Location = new System.Drawing.Point(3, 49);
+            this._equationTextBox.Name = "_equationTextBox";
+            this._equationTextBox.Size = new System.Drawing.Size(126, 20);
+            this._equationTextBox.TabIndex = 3;
+            this._equationTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.equationTextBox_KeyPress);
+            // 
+            // _scaleTrackBar
             // 
             this._scaleTrackBar.LargeChange = 1;
             this._scaleTrackBar.Location = new System.Drawing.Point(3, 3);
             this._scaleTrackBar.Minimum = 1;
-            this._scaleTrackBar.Name = "trackBarScale";
+            this._scaleTrackBar.Name = "_scaleTrackBar";
             this._scaleTrackBar.Size = new System.Drawing.Size(126, 45);
             this._scaleTrackBar.TabIndex = 2;
             this._scaleTrackBar.Value = 1;
@@ -84,32 +136,27 @@
             this.mousePointerPositionLabel.Name = "mousePointerPositionLabel";
             this.mousePointerPositionLabel.Size = new System.Drawing.Size(0, 17);
             // 
-            // _controlPanel
+            // Selected
             // 
-            this._controlPanel.Controls.Add(this._equationListBox);
-            this._controlPanel.Controls.Add(this._equationTextBox);
-            this._controlPanel.Controls.Add(this._scaleTrackBar);
-            this._controlPanel.Dock = System.Windows.Forms.DockStyle.Left;
-            this._controlPanel.Location = new System.Drawing.Point(0, 0);
-            this._controlPanel.Name = "_controlPanel";
-            this._controlPanel.Size = new System.Drawing.Size(132, 407);
-            this._controlPanel.TabIndex = 3;
+            this.Selected.HeaderText = "";
+            this.Selected.Name = "Selected";
+            this.Selected.ReadOnly = true;
+            this.Selected.Width = 10;
             // 
-            // _equationTextBox
+            // Equation
             // 
-            this._equationTextBox.Location = new System.Drawing.Point(3, 49);
-            this._equationTextBox.Name = "_equationTextBox";
-            this._equationTextBox.Size = new System.Drawing.Size(126, 20);
-            this._equationTextBox.TabIndex = 3;
-            this._equationTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.equationTextBox_KeyPress);
+            this.Equation.HeaderText = "";
+            this.Equation.Name = "Equation";
+            this.Equation.ReadOnly = true;
+            this.Equation.Width = 40;
             // 
-            // _equationListBox
+            // Highlighted
             // 
-            this._equationListBox.FormattingEnabled = true;
-            this._equationListBox.Location = new System.Drawing.Point(3, 73);
-            this._equationListBox.Name = "_equationListBox";
-            this._equationListBox.Size = new System.Drawing.Size(126, 368);
-            this._equationListBox.TabIndex = 4;
+            this.Highlighted.HeaderText = "";
+            this.Highlighted.Name = "Highlighted";
+            this.Highlighted.ReadOnly = true;
+            this.Highlighted.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Highlighted.Width = 10;
             // 
             // MainForm
             // 
@@ -123,11 +170,12 @@
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this._drawingPanel.ResumeLayout(false);
             this._drawingPanel.PerformLayout();
+            this._controlPanel.ResumeLayout(false);
+            this._controlPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._equationsDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._scaleTrackBar)).EndInit();
             this.statusStripBottom1.ResumeLayout(false);
             this.statusStripBottom1.PerformLayout();
-            this._controlPanel.ResumeLayout(false);
-            this._controlPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -140,6 +188,9 @@
         private System.Windows.Forms.ToolStripStatusLabel mousePointerPositionLabel;
         private System.Windows.Forms.TrackBar _scaleTrackBar;
         private System.Windows.Forms.Panel _controlPanel;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Selected;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Equation;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Highlighted;
     }
 }
 
